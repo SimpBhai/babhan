@@ -34,7 +34,7 @@ export function CardMenu({
       onKeyDown={handleKeyDown}
       role="dialog"
       aria-modal="true"
-      aria-label="Card menu"
+      aria-label="Chapters menu"
     >
       <div
         className="bg-white dark:bg-gray-900 rounded-lg shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-auto p-6"
@@ -42,7 +42,7 @@ export function CardMenu({
       >
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-serif text-gray-900 dark:text-white">
-            Cards
+            Chapters
           </h2>
           <button
             onClick={onClose}
@@ -65,7 +65,7 @@ export function CardMenu({
               }`}
             >
               <div className="text-sm font-semibold text-gray-600 dark:text-gray-400">
-                Card {card.id}
+                Chapter {card.id}
               </div>
               <div className="text-base font-serif text-gray-900 dark:text-white mt-1">
                 {card.title}

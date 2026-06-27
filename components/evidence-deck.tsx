@@ -122,41 +122,41 @@ export function EvidenceDeck() {
         transition={{ duration: 0.3 }}
         className="flex flex-col items-center justify-center min-h-screen pt-32 pb-24 px-4 sm:px-6 md:pt-28 md:pb-8"
       >
-        {/* Desktop Navigation Buttons */}
-        <div className="fixed top-1/2 left-4 sm:left-6 -translate-y-1/2 z-30 hidden md:flex">
+        {/* Content with Side Navigation */}
+        <div className="w-full max-w-4xl flex items-center justify-center gap-2 sm:gap-4 md:gap-6">
+          {/* Left Navigation Button */}
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={goToPrevious}
             disabled={currentIndex === 0}
-            className="p-3 rounded-lg bg-gray-800 dark:bg-gray-700 hover:bg-gray-900 dark:hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed text-white transition-colors"
-            aria-label="Previous card"
-            title="Previous card (← key)"
+            className="flex-shrink-0 p-3 rounded-lg bg-gray-800 dark:bg-gray-700 hover:bg-gray-900 dark:hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed text-white transition-colors hidden md:flex"
+            aria-label="Previous chapter"
+            title="Previous chapter (← key)"
           >
             <ChevronLeft className="w-6 h-6" />
           </motion.button>
-        </div>
 
-        <div className="fixed top-1/2 right-4 sm:right-6 -translate-y-1/2 z-30 hidden md:flex">
+          {/* Card Viewer */}
+          <CardViewer
+            card={currentCard}
+            cardNumber={currentIndex + 1}
+            totalCards={deckData.length}
+          />
+
+          {/* Right Navigation Button */}
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={goToNext}
             disabled={currentIndex === deckData.length - 1}
-            className="p-3 rounded-lg bg-gray-800 dark:bg-gray-700 hover:bg-gray-900 dark:hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed text-white transition-colors"
-            aria-label="Next card"
-            title="Next card (→ key)"
+            className="flex-shrink-0 p-3 rounded-lg bg-gray-800 dark:bg-gray-700 hover:bg-gray-900 dark:hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed text-white transition-colors hidden md:flex"
+            aria-label="Next chapter"
+            title="Next chapter (→ key)"
           >
             <ChevronRight className="w-6 h-6" />
           </motion.button>
         </div>
-
-        {/* Card Viewer */}
-        <CardViewer
-          card={currentCard}
-          cardNumber={currentIndex + 1}
-          totalCards={deckData.length}
-        />
 
         {/* Mobile Navigation & Controls */}
         <div className="fixed bottom-24 left-4 right-4 sm:bottom-8 sm:left-auto sm:right-8 flex flex-col sm:flex-row gap-3 z-30">
@@ -176,9 +176,9 @@ export function EvidenceDeck() {
             whileTap={{ scale: 0.95 }}
             onClick={() => setShowMenu(!showMenu)}
             className="flex-1 sm:flex-none px-4 py-2 rounded-lg bg-yellow-600 dark:bg-yellow-500 hover:bg-yellow-700 dark:hover:bg-yellow-600 text-white font-semibold transition-colors"
-            title="Show cards menu (C key)"
+            title="Show chapters menu (C key)"
           >
-            CARDS
+            CHAPTERS
           </motion.button>
 
           <motion.button

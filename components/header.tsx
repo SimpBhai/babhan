@@ -38,7 +38,7 @@ export function Header({
                 {title}
               </h1>
               <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                Card {cardNumber} of {totalCards}
+                Chapter {cardNumber} of {totalCards}
               </p>
             </motion.div>
           </div>
