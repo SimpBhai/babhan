@@ -207,40 +207,7 @@ export function EvidenceDeck() {
           </motion.button>
         </div>
 
-        {/* Mobile Navigation & Controls */}
-        <div className="fixed bottom-24 left-4 right-4 sm:bottom-8 sm:left-auto sm:right-8 flex flex-col sm:flex-row gap-3 z-30">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={goToPrevious}
-            disabled={currentIndex === 0}
-            className="md:hidden p-3 rounded-lg bg-gray-800 dark:bg-gray-700 hover:bg-gray-900 dark:hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed text-white transition-colors flex-1"
-            aria-label="Previous card"
-          >
-            <ChevronLeft className="w-5 h-5 mx-auto" />
-          </motion.button>
 
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setShowMenu(!showMenu)}
-            className="flex-1 sm:flex-none px-4 py-2 rounded-lg bg-yellow-600 dark:bg-yellow-500 hover:bg-yellow-700 dark:hover:bg-yellow-600 text-white font-semibold transition-colors"
-            title="Show chapters menu (C key)"
-          >
-            CHAPTERS
-          </motion.button>
-
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={goToNext}
-            disabled={currentIndex === deckData.length - 1}
-            className="md:hidden p-3 rounded-lg bg-gray-800 dark:bg-gray-700 hover:bg-gray-900 dark:hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed text-white transition-colors flex-1"
-            aria-label="Next card"
-          >
-            <ChevronRight className="w-5 h-5 mx-auto" />
-          </motion.button>
-        </div>
       </motion.div>
 
       {/* Social Footer */}
