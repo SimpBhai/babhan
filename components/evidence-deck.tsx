@@ -6,13 +6,16 @@ import { CardMenu } from './card-menu'
 import { CardViewer } from './card-viewer'
 import { SocialFooter } from './social-footer'
 import { Header } from './header'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Moon, Sun } from 'lucide-react'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
+import { useTheme } from '@/lib/theme-context'
 
 export function EvidenceDeck() {
   const [currentCardId, setCurrentCardId] = useState(1)
   const [showMenu, setShowMenu] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const { theme, toggleTheme } = useTheme()
 
   const currentCard = deckData.find((card) => card.id === currentCardId)
   const currentIndex = deckData.findIndex((card) => card.id === currentCardId)
@@ -168,7 +171,23 @@ export function EvidenceDeck() {
         </div>
 
         {/* Bottom Navigation Controls */}
-        <div className="fixed bottom-20 left-0 right-0 flex items-center justify-center gap-2 sm:gap-4 z-30 px-4">
+        <div className="fixed bottom-14 left-0 right-0 flex items-center justify-center gap-2 sm:gap-4 z-30 px-4">
+          {/* Theme Toggle */}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={toggleTheme}
+            className="p-2 rounded-lg bg-gray-700 dark:bg-gray-600 hover:bg-gray-800 dark:hover:bg-gray-500 text-white transition-colors flex-shrink-0"
+            aria-label="Toggle theme"
+            title="Toggle dark/light mode"
+          >
+            {theme === 'light' ? (
+              <Moon className="w-5 h-5" />
+            ) : (
+              <Sun className="w-5 h-5" />
+            )}
+          </motion.button>
+
           {/* Previous Button */}
           <motion.button
             whileHover={{ scale: 1.05 }}
@@ -205,6 +224,15 @@ export function EvidenceDeck() {
           >
             <ChevronRight className="w-5 h-5" />
           </motion.button>
+
+          {/* About Link */}
+          <Link
+            href="/about"
+            className="p-3 rounded-lg bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold transition-colors flex-shrink-0 text-sm sm:text-base"
+            title="About Evidence Deck"
+          >
+            About
+          </Link>
         </div>
 
 

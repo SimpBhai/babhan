@@ -53,8 +53,8 @@ const socialLinks: SocialLink[] = [
 
 export function SocialFooter() {
   return (
-    <footer className="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent dark:from-gray-900 dark:to-transparent backdrop-blur-sm">
-      <div className="flex items-center justify-center gap-6 py-4 px-6">
+    <footer className="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent dark:from-gray-900 dark:to-transparent backdrop-blur-sm py-2">
+      <div className="flex items-center justify-center gap-6 px-6">
         {socialLinks.map((link) => (
           <motion.div
             key={link.label}
