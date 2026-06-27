@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Info, Share2, Download } from 'lucide-react'
+import Link from 'next/link'
 import { useState } from 'react'
 
 interface HeaderProps {
@@ -42,41 +43,60 @@ export function Header({
             </motion.div>
           </div>
 
-          {/* Right: Actions */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            {onShare && (
+          {/* Right: Navigation & Actions */}
+          <div className="flex items-center gap-4">
+            {/* Navigation Links */}
+            <div className="hidden md:flex items-center gap-4">
+              <Link
+                href="/guides"
+                className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+              >
+                Guides
+              </Link>
+              <Link
+                href="/about"
+                className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+              >
+                About
+              </Link>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex items-center gap-2">
+              {onShare && (
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={onShare}
+                  className="hidden sm:inline-flex p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors"
+                  title="Share this presentation"
+                >
+                  <Share2 className="w-5 h-5" />
+                </motion.button>
+              )}
+
+              {onDownload && (
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={onDownload}
+                  className="hidden sm:inline-flex p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors"
+                  title="Download presentation"
+                >
+                  <Download className="w-5 h-5" />
+                </motion.button>
+              )}
+
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={onShare}
-                className="hidden sm:inline-flex p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors"
-                title="Share this presentation"
+                onClick={() => setShowInfo(!showInfo)}
+                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors"
+                title="Show keyboard shortcuts"
               >
-                <Share2 className="w-5 h-5" />
+                <Info className="w-5 h-5" />
               </motion.button>
-            )}
-
-            {onDownload && (
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={onDownload}
-                className="hidden sm:inline-flex p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors"
-                title="Download presentation"
-              >
-                <Download className="w-5 h-5" />
-              </motion.button>
-            )}
-
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setShowInfo(!showInfo)}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors"
-              title="Show keyboard shortcuts"
-            >
-              <Info className="w-5 h-5" />
-            </motion.button>
+            </div>
           </div>
         </div>
 
