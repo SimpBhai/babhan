@@ -54,27 +54,7 @@ const guides = [
 
 export default function GuidesPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-yellow-50 via-amber-50 to-orange-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900">
-      {/* Header */}
-      <div className="sticky top-0 z-20 bg-gradient-to-b from-white dark:from-gray-900 to-transparent backdrop-blur-sm border-b border-gray-200 dark:border-gray-800">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-sm text-yellow-600 dark:text-yellow-400 hover:text-yellow-700 dark:hover:text-yellow-300 mb-4 transition-colors"
-          >
-            <ArrowRight className="w-4 h-4 rotate-180" />
-            Back to Presentation
-          </Link>
-          <h1 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white mb-2">
-            Guides & Tips
-          </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400">
-            Learn how to make the most of Evidence Deck
-          </p>
-        </div>
-      </div>
-
-      {/* Content */}
+    <main className="min-h-screen bg-gradient-to-br from-yellow-50 via-amber-50 to-orange-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 transition-colors duration-200 pb-32">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Guide Cards Grid */}
         <div className="grid md:grid-cols-2 gap-6 mb-16">

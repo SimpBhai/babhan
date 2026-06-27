@@ -103,7 +103,7 @@ export function EvidenceDeck() {
   if (!mounted || !currentCard) return null
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-amber-50 to-orange-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 transition-colors duration-200">
+    <div className="min-h-screen pb-32 bg-gradient-to-br from-yellow-50 via-amber-50 to-orange-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 transition-colors duration-200">
       {/* Header */}
       <Header
         title={currentCard.title}
