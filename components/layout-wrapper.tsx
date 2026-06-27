@@ -4,82 +4,56 @@ import { ThemeProvider } from '@/lib/theme-context'
 import { ThemeToggle } from './theme-toggle'
 import { Analytics } from '@vercel/analytics/next'
 import Link from 'next/link'
-import { Menu, X } from 'lucide-react'
+import { Home, BookOpen, Info } from 'lucide-react'
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 
 export function LayoutWrapper({ children }: { children: React.ReactNode }) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [isHovered, setIsHovered] = useState<string | null>(null)
+
+  const navItems = [
+    { href: '/', icon: Home, label: 'Home', title: 'Main Presentation' },
+    { href: '/guides', icon: BookOpen, label: 'Guides', title: 'Guides & Tutorials' },
+    { href: '/about', icon: Info, label: 'About', title: 'About Evidence Deck' },
+  ]
 
   return (
     <ThemeProvider>
       <ThemeToggle />
       
-      {/* Navigation Bar */}
-      <nav className="fixed top-0 right-0 z-40 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800">
-        <div className="px-4 py-3 flex items-center justify-end gap-2">
-          <div className="hidden sm:flex items-center gap-4">
-            <Link
-              href="/"
-              className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+      {/* Icon Navigation */}
+      <nav className="fixed top-6 right-6 z-40 flex items-center gap-3">
+        {navItems.map((item) => {
+          const Icon = item.icon
+          return (
+            <motion.div
+              key={item.href}
+              onHoverStart={() => setIsHovered(item.label)}
+              onHoverEnd={() => setIsHovered(null)}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
             >
-              Home
-            </Link>
-            <Link
-              href="/guides"
-              className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
-            >
-              Guides
-            </Link>
-            <Link
-              href="/about"
-              className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
-            >
-              About
-            </Link>
-          </div>
-          
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="sm:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? (
-              <X className="w-5 h-5" />
-            ) : (
-              <Menu className="w-5 h-5" />
-            )}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="sm:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
-            <div className="flex flex-col">
               <Link
-                href="/"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
+                href={item.href}
+                className="relative inline-flex items-center justify-center w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-all duration-200 shadow-lg hover:shadow-xl"
+                title={item.title}
+                aria-label={item.label}
               >
-                Home
+                <Icon className="w-5 h-5" />
+                {isHovered === item.label && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    className="absolute -bottom-10 px-3 py-1 bg-gray-900 dark:bg-gray-700 text-white text-xs rounded-md whitespace-nowrap font-medium"
+                  >
+                    {item.label}
+                  </motion.div>
+                )}
               </Link>
-              <Link
-                href="/guides"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
-              >
-                Guides
-              </Link>
-              <Link
-                href="/about"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
-              >
-                About
-              </Link>
-            </div>
-          </div>
-        )}
+            </motion.div>
+          )
+        })}
       </nav>
 
       {children}
