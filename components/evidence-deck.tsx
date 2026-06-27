@@ -4,14 +4,22 @@ import { deckData } from '@/lib/deck-data'
 import { useEffect, useState } from 'react'
 import { CardMenu } from './card-menu'
 import { CardViewer } from './card-viewer'
+import { SocialFooter } from './social-footer'
+import { Header } from './header'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 export function EvidenceDeck() {
   const [currentCardId, setCurrentCardId] = useState(1)
   const [showMenu, setShowMenu] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   const currentCard = deckData.find((card) => card.id === currentCardId)
   const currentIndex = deckData.findIndex((card) => card.id === currentCardId)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const goToCard = (id: number) => {
     const card = deckData.find((c) => c.id === id)
@@ -40,6 +48,32 @@ export function EvidenceDeck() {
     goToCard(deckData[deckData.length - 1].id)
   }
 
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: `Evidence Deck - ${currentCard?.title}`,
+        text: `Check out this card: ${currentCard?.title}`,
+        url: window.location.href,
+      })
+    } else {
+      // Fallback: copy to clipboard
+      const url = `${window.location.origin}?card=${currentCardId}`
+      navigator.clipboard.writeText(url)
+      alert('Card link copied to clipboard!')
+    }
+  }
+
+  const handleDownload = () => {
+    const content = JSON.stringify(deckData, null, 2)
+    const blob = new Blob([content], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'evidence-deck.json'
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
   // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -66,15 +100,33 @@ export function EvidenceDeck() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [showMenu, currentIndex])
 
-  if (!currentCard) return null
+  if (!mounted || !currentCard) return null
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-amber-50 to-orange-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 transition-colors duration-200">
+      {/* Header */}
+      <Header
+        title={currentCard.title}
+        cardNumber={currentIndex + 1}
+        totalCards={deckData.length}
+        onShare={handleShare}
+        onDownload={handleDownload}
+      />
+
       {/* Main Content */}
-      <div className="flex flex-col items-center justify-center min-h-screen p-6 md:p-8">
-        {/* Navigation Buttons */}
-        <div className="fixed top-1/2 left-6 -translate-y-1/2 z-30 hidden md:flex">
-          <button
+      <motion.div
+        key={currentCardId}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -10 }}
+        transition={{ duration: 0.3 }}
+        className="flex flex-col items-center justify-center min-h-screen pt-32 pb-24 px-4 sm:px-6 md:pt-28 md:pb-8"
+      >
+        {/* Desktop Navigation Buttons */}
+        <div className="fixed top-1/2 left-4 sm:left-6 -translate-y-1/2 z-30 hidden md:flex">
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
             onClick={goToPrevious}
             disabled={currentIndex === 0}
             className="p-3 rounded-lg bg-gray-800 dark:bg-gray-700 hover:bg-gray-900 dark:hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed text-white transition-colors"
@@ -82,11 +134,13 @@ export function EvidenceDeck() {
             title="Previous card (← key)"
           >
             <ChevronLeft className="w-6 h-6" />
-          </button>
+          </motion.button>
         </div>
 
-        <div className="fixed top-1/2 right-6 -translate-y-1/2 z-30 hidden md:flex">
-          <button
+        <div className="fixed top-1/2 right-4 sm:right-6 -translate-y-1/2 z-30 hidden md:flex">
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
             onClick={goToNext}
             disabled={currentIndex === deckData.length - 1}
             className="p-3 rounded-lg bg-gray-800 dark:bg-gray-700 hover:bg-gray-900 dark:hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed text-white transition-colors"
@@ -94,7 +148,7 @@ export function EvidenceDeck() {
             title="Next card (→ key)"
           >
             <ChevronRight className="w-6 h-6" />
-          </button>
+          </motion.button>
         </div>
 
         {/* Card Viewer */}
@@ -105,59 +159,43 @@ export function EvidenceDeck() {
         />
 
         {/* Mobile Navigation & Controls */}
-        <div className="fixed bottom-6 left-6 right-6 flex flex-col md:flex-row gap-3 md:bottom-8 md:left-8 md:right-auto md:w-auto z-30">
-          <button
+        <div className="fixed bottom-24 left-4 right-4 sm:bottom-8 sm:left-auto sm:right-8 flex flex-col sm:flex-row gap-3 z-30">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={goToPrevious}
             disabled={currentIndex === 0}
             className="md:hidden p-3 rounded-lg bg-gray-800 dark:bg-gray-700 hover:bg-gray-900 dark:hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed text-white transition-colors flex-1"
             aria-label="Previous card"
           >
             <ChevronLeft className="w-5 h-5 mx-auto" />
-          </button>
+          </motion.button>
 
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => setShowMenu(!showMenu)}
-            className="flex-1 md:flex-none md:mb-0 px-4 py-2 rounded-lg bg-yellow-600 dark:bg-yellow-500 hover:bg-yellow-700 dark:hover:bg-yellow-600 text-white font-semibold transition-colors"
+            className="flex-1 sm:flex-none px-4 py-2 rounded-lg bg-yellow-600 dark:bg-yellow-500 hover:bg-yellow-700 dark:hover:bg-yellow-600 text-white font-semibold transition-colors"
             title="Show cards menu (C key)"
           >
             CARDS
-          </button>
+          </motion.button>
 
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={goToNext}
             disabled={currentIndex === deckData.length - 1}
             className="md:hidden p-3 rounded-lg bg-gray-800 dark:bg-gray-700 hover:bg-gray-900 dark:hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed text-white transition-colors flex-1"
             aria-label="Next card"
           >
             <ChevronRight className="w-5 h-5 mx-auto" />
-          </button>
+          </motion.button>
         </div>
+      </motion.div>
 
-        {/* Keyboard Help */}
-        <div className="fixed bottom-6 right-6 text-xs text-gray-600 dark:text-gray-400 hidden md:block">
-          <div className="bg-white dark:bg-gray-800 rounded-lg p-3 shadow-lg">
-            <p className="font-semibold mb-1">Keyboard Shortcuts</p>
-            <p>
-              <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 rounded text-xs font-mono">
-                C
-              </kbd>{' '}
-              Menu
-            </p>
-            <p>
-              <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 rounded text-xs font-mono">
-                ←→
-              </kbd>{' '}
-              Navigate
-            </p>
-            <p>
-              <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 rounded text-xs font-mono">
-                Home/End
-              </kbd>{' '}
-              Jump
-            </p>
-          </div>
-        </div>
-      </div>
+      {/* Social Footer */}
+      <SocialFooter />
 
       {/* Card Menu Modal */}
       {showMenu && (
