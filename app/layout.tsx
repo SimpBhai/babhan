@@ -1,6 +1,6 @@
-import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Geist, Geist_Mono, EB_Garamond } from 'next/font/google'
+import { LayoutWrapper } from '@/components/layout-wrapper'
 import './globals.css'
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
@@ -8,10 +8,15 @@ const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
 })
+const ebGaramond = EB_Garamond({
+  variable: '--font-serif',
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+})
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'Evidence Deck - Space Exploration',
+  description: 'Professional presentation framework for evidence-based discussions',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -35,8 +40,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   colorScheme: 'light dark',
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
+    { media: '(prefers-color-scheme: light)', color: '#F5F1EB' },
+    { media: '(prefers-color-scheme: dark)', color: '#1a1a1a' },
   ],
 }
 
@@ -46,10 +51,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body className="font-sans antialiased">
-        {children}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} ${ebGaramond.variable} light`}
+      suppressHydrationWarning
+    >
+      <body className="font-sans antialiased bg-yellow-50 dark:bg-gray-900 transition-colors duration-200">
+        <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
   )
