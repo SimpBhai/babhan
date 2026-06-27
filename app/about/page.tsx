@@ -1,4 +1,4 @@
-import { ArrowRight, Github, Heart } from 'lucide-react'
+import { ArrowRight, Code2, Heart } from 'lucide-react'
 import Link from 'next/link'
 
 export default function AboutPage() {
@@ -190,7 +190,7 @@ export default function AboutPage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-semibold rounded-lg transition-colors"
               >
-                <Github className="w-4 h-4" />
+                <Code2 className="w-4 h-4" />
                 View on GitHub
               </a>
             </div>
