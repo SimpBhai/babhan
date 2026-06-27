@@ -122,15 +122,15 @@ export function EvidenceDeck() {
         transition={{ duration: 0.3 }}
         className="flex flex-col items-center justify-center min-h-screen pt-32 pb-24 px-4 sm:px-6 md:pt-28 md:pb-8"
       >
-        {/* Content with Side Navigation */}
-        <div className="w-full max-w-4xl flex items-center justify-center gap-2 sm:gap-4 md:gap-6">
-          {/* Left Navigation Button */}
+        {/* Content with Side Navigation (Desktop) */}
+        <div className="w-full max-w-4xl hidden md:flex items-center justify-center gap-2 md:gap-6">
+          {/* Left Navigation Button - Desktop Only */}
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={goToPrevious}
             disabled={currentIndex === 0}
-            className="flex-shrink-0 p-3 rounded-lg bg-gray-800 dark:bg-gray-700 hover:bg-gray-900 dark:hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed text-white transition-colors hidden md:flex"
+            className="flex-shrink-0 p-3 rounded-lg bg-gray-800 dark:bg-gray-700 hover:bg-gray-900 dark:hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed text-white transition-colors"
             aria-label="Previous chapter"
             title="Previous chapter (← key)"
           >
@@ -144,17 +144,66 @@ export function EvidenceDeck() {
             totalCards={deckData.length}
           />
 
-          {/* Right Navigation Button */}
+          {/* Right Navigation Button - Desktop Only */}
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={goToNext}
             disabled={currentIndex === deckData.length - 1}
-            className="flex-shrink-0 p-3 rounded-lg bg-gray-800 dark:bg-gray-700 hover:bg-gray-900 dark:hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed text-white transition-colors hidden md:flex"
+            className="flex-shrink-0 p-3 rounded-lg bg-gray-800 dark:bg-gray-700 hover:bg-gray-900 dark:hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed text-white transition-colors"
             aria-label="Next chapter"
             title="Next chapter (→ key)"
           >
             <ChevronRight className="w-6 h-6" />
+          </motion.button>
+        </div>
+
+        {/* Mobile Card Viewer - No side buttons */}
+        <div className="w-full md:hidden">
+          <CardViewer
+            card={currentCard}
+            cardNumber={currentIndex + 1}
+            totalCards={deckData.length}
+          />
+        </div>
+
+        {/* Bottom Navigation Controls */}
+        <div className="fixed bottom-20 left-0 right-0 flex items-center justify-center gap-2 sm:gap-4 z-30 px-4">
+          {/* Previous Button */}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={goToPrevious}
+            disabled={currentIndex === 0}
+            className="p-3 rounded-lg bg-gray-700 dark:bg-gray-600 hover:bg-gray-800 dark:hover:bg-gray-500 disabled:opacity-40 disabled:cursor-not-allowed text-white transition-colors flex-shrink-0"
+            aria-label="Previous chapter"
+            title="Previous chapter (← key)"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </motion.button>
+
+          {/* Chapters Button */}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setShowMenu(!showMenu)}
+            className="px-6 py-2 rounded-lg bg-yellow-600 dark:bg-yellow-500 hover:bg-yellow-700 dark:hover:bg-yellow-600 text-white font-semibold transition-colors flex-shrink-0"
+            title="Show chapters menu (C key)"
+          >
+            CHAPTERS
+          </motion.button>
+
+          {/* Next Button */}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={goToNext}
+            disabled={currentIndex === deckData.length - 1}
+            className="p-3 rounded-lg bg-gray-700 dark:bg-gray-600 hover:bg-gray-800 dark:hover:bg-gray-500 disabled:opacity-40 disabled:cursor-not-allowed text-white transition-colors flex-shrink-0"
+            aria-label="Next chapter"
+            title="Next chapter (→ key)"
+          >
+            <ChevronRight className="w-5 h-5" />
           </motion.button>
         </div>
 

@@ -43,26 +43,8 @@ export function Header({
             </motion.div>
           </div>
 
-          {/* Right: Navigation & Actions */}
-          <div className="flex items-center gap-4">
-            {/* Navigation Links */}
-            <div className="hidden md:flex items-center gap-4">
-              <Link
-                href="/guides"
-                className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-              >
-                Guides
-              </Link>
-              <Link
-                href="/about"
-                className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-              >
-                About
-              </Link>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex items-center gap-2">
+          {/* Right: Action Buttons */}
+          <div className="flex items-center gap-2">
               {onShare && (
                 <motion.button
                   whileHover={{ scale: 1.05 }}
@@ -97,7 +79,6 @@ export function Header({
                 <Info className="w-5 h-5" />
               </motion.button>
             </div>
-          </div>
         </div>
 
         {/* Progress Bar */}
