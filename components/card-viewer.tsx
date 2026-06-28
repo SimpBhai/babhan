@@ -30,7 +30,7 @@ export function CardViewer({ card, cardNumber, totalCards }: CardViewerProps) {
       {/* Card Header */}
       <div className="mb-8">
         <div className="text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-2">
-          Card {cardNumber} of {totalCards}
+          Chapter {cardNumber} of {totalCards}
         </div>
         <h1 className="text-4xl md:text-5xl font-serif text-gray-900 dark:text-white mb-4 text-balance">
           {card.title}
