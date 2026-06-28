@@ -1,9 +1,6 @@
-import { EvidenceDeck } from '@/components/evidence-deck'
+import { redirect } from 'next/navigation'
 
 export default function Page() {
-  return (
-    <main>
-      <EvidenceDeck />
-    </main>
-  )
+  // Redirect to first chapter
+  redirect('/chapter/1')
 }
