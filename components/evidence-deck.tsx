@@ -6,7 +6,7 @@ import { CardMenu } from './card-menu'
 import { CardViewer } from './card-viewer'
 import { SocialFooter } from './social-footer'
 import { Header } from './header'
-import { ChevronLeft, ChevronRight, Moon, Sun } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Moon, Sun, Info } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useTheme } from '@/lib/theme-context'
@@ -225,13 +225,14 @@ export function EvidenceDeck() {
             <ChevronRight className="w-5 h-5" />
           </motion.button>
 
-          {/* About Link */}
+          {/* About Link with Icon */}
           <Link
             href="/about"
-            className="p-3 rounded-lg bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold transition-colors flex-shrink-0 text-sm sm:text-base"
+            className="p-3 rounded-lg bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white transition-colors flex-shrink-0"
             title="About Evidence Deck"
+            aria-label="About"
           >
-            About
+            <Info className="w-5 h-5" />
           </Link>
         </div>
 

@@ -1,4 +1,4 @@
-import { ArrowRight, Code2, Heart } from 'lucide-react'
+import { Code2, Heart } from 'lucide-react'
 import Link from 'next/link'
 
 export default function AboutPage() {
@@ -11,8 +11,7 @@ export default function AboutPage() {
             href="/"
             className="inline-flex items-center gap-2 text-sm text-yellow-600 dark:text-yellow-400 hover:text-yellow-700 dark:hover:text-yellow-300 mb-4 transition-colors"
           >
-            <ArrowRight className="w-4 h-4 rotate-180" />
-            Back to Presentation
+            ← Back to Presentation
           </Link>
           <h1 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white">
             About Evidence Deck
@@ -177,13 +176,6 @@ export default function AboutPage() {
               guides and documentation to get up and running in minutes.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/guides"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-yellow-600 dark:bg-yellow-500 hover:bg-yellow-700 dark:hover:bg-yellow-600 text-white font-semibold rounded-lg transition-colors"
-              >
-                Read Guides
-                <ArrowRight className="w-4 h-4" />
-              </Link>
               <a
                 href="https://github.com"
                 target="_blank"
