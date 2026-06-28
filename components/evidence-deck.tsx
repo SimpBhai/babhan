@@ -6,7 +6,7 @@ import { CardMenu } from './card-menu'
 import { CardViewer } from './card-viewer'
 import { SocialFooter } from './social-footer'
 import { Header } from './header'
-import { ChevronLeft, ChevronRight, Moon, Sun, Copy, Info } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Moon, Sun, Info } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useTheme } from '@/lib/theme-context'
@@ -127,7 +127,6 @@ export function EvidenceDeck() {
         cardNumber={currentIndex + 1}
         totalCards={deckData.length}
         onShare={handleShare}
-        onDownload={handleDownload}
       />
 
       {/* Main Content */}
@@ -237,18 +236,6 @@ export function EvidenceDeck() {
             title="Next chapter (→ key)"
           >
             <ChevronRight className="w-5 h-5" />
-          </motion.button>
-
-          {/* Share/Copy Link Button */}
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={handleShare}
-            className="p-3 rounded-lg bg-green-600 dark:bg-green-500 hover:bg-green-700 dark:hover:bg-green-600 text-white transition-colors flex-shrink-0"
-            title="Copy chapter link to clipboard"
-            aria-label="Copy chapter link"
-          >
-            <Copy className="w-5 h-5" />
           </motion.button>
 
           {/* About Link */}
