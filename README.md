@@ -1,6 +1,6 @@
-# Evidence Deck - Modern Interactive Presentation Framework
+# Evidence Deck - Multi-Page Interactive Presentation Framework
 
-A beautiful, responsive, and feature-rich presentation framework built with Next.js 16, React 19, Tailwind CSS, and Framer Motion. Perfect for creating engaging chapter-based presentations with smooth animations, seamless navigation, and professional social media integration.
+A modern, responsive, multi-page presentation framework built with Next.js 16, React 19, Tailwind CSS, and Framer Motion. Create and share individual chapters with unique URLs (`/chapter/1`, `/chapter/2`, etc.), smooth navigation, and one-click copy-to-clipboard sharing for each chapter.
 
 ![Next.js](https://img.shields.io/badge/Next.js-16+-black?logo=next.js)
 ![React](https://img.shields.io/badge/React-19+-blue?logo=react)
@@ -8,42 +8,60 @@ A beautiful, responsive, and feature-rich presentation framework built with Next
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.2-38B2AC?logo=tailwind-css)
 ![Framer Motion](https://img.shields.io/badge/Framer%20Motion-11+-black?logo=framer)
 
-## Features
+## Key Features
 
-✨ **Modern & Responsive Design**
-- Fully responsive layout (mobile 375px, tablet, desktop 1280px+)
+### 🌐 **Multi-Page Architecture**
+- Each chapter has its own dedicated page: `/chapter/1`, `/chapter/2`, `/chapter/3`, etc.
+- Unique, shareable URLs for every chapter
+- Direct chapter links automatically update based on current chapter
+- SEO-friendly dynamic routing structure
+- No page reload when navigating (SPA-like experience)
+
+### 🔗 **Smart Copy-to-Clipboard Links**
+- **Green copy icon button** in header upper-right corner
+- Click to copy the **exact current chapter URL** to clipboard
+- Shows confirmation alert with the copied URL
+- Chapter 1 copies: `yoursite.com/chapter/1`
+- Chapter 2 copies: `yoursite.com/chapter/2`
+- Perfect for sharing specific chapters with others
+- Works on all pages automatically
+
+### 🎯 **Seamless Navigation**
+- Previous/Next buttons navigate between sequential chapters
+- CHAPTERS menu button opens modal to jump to any chapter
+- Clicking a chapter in menu navigates to `/chapter/X`
+- Keyboard shortcuts for power users (← →, C, Home, End, Esc)
+- Visual feedback on all buttons (hover/tap animations)
+
+### 🎨 **Modern & Responsive Design**
+- Fully responsive: mobile (375px), tablet, desktop (1280px+)
 - Dark mode support with automatic system preference detection
-- Smooth animations with Framer Motion for polished interactions
-- Progressive enhancement and accessibility-first approach
+- Smooth animations with Framer Motion
 - Gradient backgrounds and glass-morphism effects
+- Mobile: bottom navigation with stacked buttons
+- Desktop: side navigation with larger buttons
 
-🎯 **Chapter-Based Navigation**
-- Navigate through chapters with smooth slide transitions
-- Visual progress bar showing presentation progress
-- Chapter counter (Chapter X of Y) in header
-- Bottom navigation bar with intuitive controls
-- Keyboard shortcuts for power users
+### 🌙 **Theme & Customization**
+- Light/dark mode toggle in navigation bar
+- Smooth theme transitions between modes
+- Persistent theme preference in localStorage
+- Beautiful gradient backgrounds for each theme
+- Customizable color scheme via CSS variables
 
-🎮 **Interactive Controls & Shortcuts**
-- **Keyboard Navigation**: Arrow keys (← →) to move between chapters
-- **Home/End Keys**: Jump to first or last chapter
-- **C Key**: Toggle chapters menu for quick navigation
-- **Esc Key**: Close any open menus
-- Touch-friendly button sizing (44px minimum on mobile)
-- Real-time visual feedback with hover/tap animations
+### ♿ **Accessibility & UX**
+- Semantic HTML (main, header, footer, nav)
+- ARIA labels on all interactive elements
+- Keyboard navigation fully functional
+- Screen reader friendly
+- Touch-friendly button sizing (44px minimum)
+- Skip to content links for power users
 
-🔗 **Social & Sharing Features**
-- **Share Button**: Copy chapter links to clipboard with one click
-- **Social Media Footer**: Direct links to Twitter, Instagram, Discord
-- **Shareable Chapter Links**: Each chapter has a unique URL parameter
-- **Social Integration**: Embedded social icons with hover effects
-- **Built-in Social Footer**: Always accessible at bottom of page
-
-📱 **Mobile-First Responsive Design**
+### 📱 **Mobile-First Responsive Design**
 - Optimized mobile layout with bottom navigation
-- Desktop layout with side navigation buttons
+- Desktop layout with enhanced side navigation
 - Tablet-optimized spacing and typography
-- Touch gestures support on mobile
+- Touch gestures and swipe support
+- Responsive images and typography
 - Reduced spacing on small screens
 
 ## Navigation Bar Layout
@@ -105,115 +123,429 @@ pnpm start
 ```
 evidence-deck/
 ├── app/
-│   ├── globals.css          # Global styles and Tailwind config
-│   ├── layout.tsx           # Root layout with metadata
-│   └── page.tsx             # Main page component
+│   ├── chapter/
+│   │   └── [id]/
+│   │       └── page.tsx              # Individual chapter pages (dynamic routing)
+│   ├── about/
+│   │   └── page.tsx                  # About page
+│   ├── guides/
+│   │   └── page.tsx                  # Guides page
+│   ├── globals.css                   # Global styles and Tailwind config
+│   ├── layout.tsx                    # Root layout with metadata
+│   └── page.tsx                      # Home page (redirects to /chapter/1)
 ├── components/
-│   ├── card-menu.tsx        # Card selection modal
-│   ├── card-viewer.tsx      # Individual card display
-│   ├── evidence-deck.tsx    # Main deck component
-│   ├── header.tsx           # Modern header with controls
-│   ├── layout-wrapper.tsx   # Provider wrapper
-│   ├── social-footer.tsx    # Social media links footer
-│   ├── theme-toggle.tsx     # Dark mode toggle
-│   └── ui/                  # shadcn/ui components
+│   ├── card-menu.tsx                 # Chapters selection modal
+│   ├── card-viewer.tsx               # Chapter content display component
+│   ├── evidence-deck.tsx             # Legacy single-page component (deprecated)
+│   ├── header.tsx                    # Header with title, progress, and copy button
+│   ├── social-footer.tsx             # Social media links footer
+│   ├── theme-toggle.tsx              # Dark/light mode button
+│   └── ui/                           # shadcn/ui components (if using)
 ├── lib/
-│   ├── deck-data.ts         # Presentation data structure
-│   ├── theme-context.tsx    # Theme management
-│   └── utils.ts             # Utility functions
-└── public/                  # Static assets (icons, images)
+│   ├── deck-data.ts                  # ALL chapter data (single source of truth)
+│   ├── theme-context.tsx             # Theme provider and hooks
+│   └── utils.ts                      # Utility functions
+├── public/                           # Static assets (images, icons)
+└── README.md                         # This file
 ```
 
-## Creating Your Own Presentation
+### Key Files Explained
 
-### 1. Understanding the Data Structure
+**`app/chapter/[id]/page.tsx`** - Dynamic chapter page component
+- Loads chapter based on URL parameter: `/chapter/1`, `/chapter/2`, etc.
+- Handles navigation (previous/next buttons)
+- Implements keyboard shortcuts
+- Displays copy-to-clipboard button
+- Each chapter is server-rendered as a separate page
 
-The presentation deck is defined in `lib/deck-data.ts`. Here's the structure:
+**`lib/deck-data.ts`** - Single source of truth for all chapters
+- Contains all chapter content in a TypeScript array
+- Defines Card, Section, and Source interfaces
+- When you add/edit a chapter here, it automatically appears in:
+  - All chapter pages
+  - Navigation menu
+  - Copy links
+  - Next/previous buttons
+
+**`components/header.tsx`** - Displays chapter info and copy button
+- Shows chapter title and progress (e.g., "Chapter 2 of 6")
+- Green copy button in upper-right corner
+- Generates correct chapter URL when clicked
+
+**`components/card-menu.tsx`** - Chapters selection modal
+- Shows all chapters in a grid
+- Click to navigate to that chapter's page
+- Highlights the current chapter
+- Auto-links to `/chapter/X` on selection
+
+## 📚 Complete Guide: Creating & Editing Chapters
+
+### Understanding Chapter Data Structure
+
+All chapters are defined in **`lib/deck-data.ts`**. This is the single source of truth - when you add or edit a chapter here, it automatically appears everywhere:
+- All chapter pages (`/chapter/1`, `/chapter/2`, etc.)
+- CHAPTERS navigation menu
+- Next/previous buttons
+- Copy chapter links
+
+### Data Structure
 
 ```typescript
 export interface Card {
-  id: number              // Unique identifier
-  title: string           // Card title
-  sections: Section[]     // Array of sections
-  sources?: Source[]      // Optional source citations
+  id: number              // Unique chapter number (1, 2, 3, etc.)
+  title: string           // Chapter title - shows in header
+  sections: Section[]     // Array of content sections
+  sources?: Source[]      // Optional reference sources/links
 }
 
 export interface Section {
-  heading: string                    // Section title
-  content: string                    // Main content paragraph
-  subsections?: Array<{             // Optional subsections
-    title: string                    // Subsection title
-    content: string                  // Subsection content
+  heading: string         // Section title
+  content: string         // Main paragraph text
+  subsections?: Array<{   // Optional subsections
+    title: string         // Subsection title
+    content: string       // Subsection paragraph
   }>
 }
 
 export interface Source {
-  label: string           // Display name
-  url: string             // External link
+  label: string           // Link display text
+  url: string             // External URL
 }
 ```
 
-### 2. Adding New Cards
+---
 
-Edit `lib/deck-data.ts` and add a new card object to the `deckData` array:
+## ✨ Creating a New Chapter
+
+### Step 1: Open Chapter Data File
+
+Navigate to `/lib/deck-data.ts` and find the `deckData` array:
+
+```typescript
+export const deckData: Card[] = [
+  { id: 1, title: 'Space Exploration Overview', ... },
+  { id: 2, title: 'Early Space Race', ... },
+  // ... more chapters ...
+]
+```
+
+### Step 2: Add New Chapter Object
+
+Add a new chapter object to the `deckData` array with the next sequential ID:
 
 ```typescript
 {
-  id: 7,
-  title: 'Your Card Title',
+  id: 7,                              // Next chapter number
+  title: 'Your Chapter Title',         // Main heading
   sections: [
     {
-      heading: 'Main Section',
-      content: 'Your main content here...',
+      heading: 'Introduction',        // Section heading
+      content: 'Your introduction paragraph goes here...',
+      // Optional: add subsections
       subsections: [
         {
-          title: 'Subsection 1',
-          content: 'Detailed information...'
+          title: 'Key Point 1',
+          content: 'Details about key point 1...'
+        },
+        {
+          title: 'Key Point 2',
+          content: 'Details about key point 2...'
         }
       ]
+    },
+    {
+      heading: 'Main Content',
+      content: 'Your main content paragraph...'
+    },
+    {
+      heading: 'Conclusion',
+      content: 'Summary and concluding remarks...'
     }
   ],
-  sources: [
-    { label: 'Source Name', url: 'https://example.com' }
+  sources: [                          // Optional: reference sources
+    { label: 'Wikipedia Article', url: 'https://wikipedia.org/...' },
+    { label: 'Official Site', url: 'https://example.com' }
   ]
 }
 ```
 
-### 3. Customizing Social Links
+### Step 3: Verify & Test
 
-Edit `components/social-footer.tsx` to add or modify social media links:
+1. **Save the file** - The dev server will auto-reload
+2. **Navigate to the new chapter**: `http://localhost:3000/chapter/7`
+3. **Check CHAPTERS menu** - Your new chapter should appear
+4. **Test copy link** - Click green button in header, verify URL is correct
+5. **Test navigation** - Next/previous buttons should work correctly
+
+### Complete Chapter Example
+
+Here's a full, working example of a chapter:
 
 ```typescript
-const socialLinks: SocialLink[] = [
-  {
-    label: 'Twitter',
-    url: 'https://twitter.com/yourhandle',
-    icon: <Twitter className="w-5 h-5" />,
-  },
-  {
-    label: 'Your Platform',
-    url: 'https://yourplatform.com',
-    icon: <YourIcon className="w-5 h-5" />,
-  },
-]
-```
-
-### 4. Modifying Colors & Theme
-
-Update the design tokens in `app/globals.css`:
-
-```css
-:root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --secondary: oklch(0.97 0 0);
-  --accent: oklch(0.97 0 0);
-  /* ... more tokens ... */
+{
+  id: 4,
+  title: 'Space Stations & Orbital Habitats',
+  sections: [
+    {
+      heading: 'Early Space Stations',
+      content: 'Space stations represent humanity\'s first permanent presence beyond Earth. Starting with Salyut and Skylab in the 1970s, these pioneering outposts proved that humans could live and work in space for extended periods.',
+      subsections: [
+        {
+          title: 'Salyut Program',
+          content: 'The Soviet Union launched the first space station, Salyut 1, in 1971. It pioneered long-duration spaceflight and established protocols for crew rotations.'
+        },
+        {
+          title: 'Skylab',
+          content: 'America\'s response, Skylab, operated from 1973-1979 and conducted groundbreaking experiments in materials science and astronomy.'
+        }
+      ]
+    },
+    {
+      heading: 'International Space Station',
+      content: 'The ISS, completed in 2011, represents unprecedented international cooperation. It hosts experiments for multiple nations and serves as a testbed for technologies needed for future deep space missions.'
+    },
+    {
+      heading: 'Future Plans',
+      content: 'China is building its own space station while private companies plan commercial stations. These will support research, tourism, and manufacturing in microgravity.'
+    }
+  ],
+  sources: [
+    { label: 'ISS Facts', url: 'https://www.nasa.gov/station' },
+    { label: 'Space Station History', url: 'https://history.nasa.gov/sts-1/pages/contents.html' }
+  ]
 }
 ```
 
-Color format is OKLCH (Oklab with Chroma and Hue). You can use tools like [OkLCh Color Picker](https://oklch.com) to customize.
+---
+
+## ✏️ Editing Existing Chapters
+
+### Step 1: Locate Chapter in Data File
+
+Open `/lib/deck-data.ts` and find the chapter by its ID:
+
+```typescript
+// Find chapter ID 3
+{
+  id: 3,
+  title: 'Apollo Program',
+  sections: [...]
+}
+```
+
+### Step 2: Edit Chapter Properties
+
+You can edit any of these:
+
+**Edit the title:**
+```typescript
+title: 'Apollo Program'  // Change to: 'The Apollo Missions'
+```
+
+**Edit section content:**
+```typescript
+sections: [
+  {
+    heading: 'Moon Landing Achievement',
+    content: 'Apollo 11, launched on July 16, 1969...' // Edit text here
+  }
+]
+```
+
+**Add a new section:**
+```typescript
+{
+  heading: 'New Section Title',
+  content: 'New content paragraph...'
+}
+```
+
+**Edit or add subsections:**
+```typescript
+subsections: [
+  {
+    title: 'Subsection Name',
+    content: 'Subsection content...'
+  }
+]
+```
+
+**Add source links:**
+```typescript
+sources: [
+  { label: 'NASA Apollo', url: 'https://www.nasa.gov/apollo' }
+]
+```
+
+### Step 3: Save & Verify
+
+1. **Save the file** - Dev server auto-reloads
+2. **Navigate to chapter**: `http://localhost:3000/chapter/3`
+3. **Verify changes** - New content should display immediately
+4. **Check other pages** - Verify menu and navigation still work
+
+### Common Edits
+
+**Change chapter title:**
+```typescript
+// Before
+{ id: 2, title: 'Early Space Race', ... }
+
+// After
+{ id: 2, title: 'The Space Race Begins', ... }
+```
+
+**Update section content:**
+```typescript
+// Before
+{ heading: 'Impact', content: 'Led to investments...' }
+
+// After
+{ heading: 'Impact on Science', content: 'Led to massive investments in STEM education and technology development worldwide.' }
+```
+
+**Reorder sections:**
+```typescript
+// Simply rearrange array order
+sections: [
+  // Section 1 (currently second)
+  { heading: 'Main Content', ... },
+  // Section 2 (currently first)
+  { heading: 'Introduction', ... }
+]
+```
+
+---
+
+## 🔗 Copy Chapter Link Functionality
+
+The copy-to-clipboard feature is **automatically configured** for each chapter:
+
+### How It Works
+
+1. **User navigates** to any chapter (e.g., `/chapter/3`)
+2. **Green copy button** appears in header (upper-right corner)
+3. **Click button** → URL is copied: `yoursite.com/chapter/3`
+4. **Alert shown** with the copied URL
+5. **Paste link** anywhere to share that specific chapter
+
+### Copy Link in Code
+
+The copy functionality is in `components/header.tsx`:
+
+```typescript
+const handleShare = () => {
+  const chapterUrl = `${window.location.origin}/chapter/${chapterContent.chapterId}`
+  navigator.clipboard.writeText(chapterUrl).then(() => {
+    alert(`Chapter link copied to clipboard!\n${chapterUrl}`)
+  })
+}
+```
+
+No configuration needed - it works automatically for all chapters!
+
+---
+
+## 🎨 Deleting a Chapter
+
+### ⚠️ Important: Always Update IDs
+
+If you delete a chapter, **do not change the IDs** of other chapters. The system uses ID numbers to identify chapters.
+
+**Instead:**
+
+1. Remove the chapter object from the array:
+
+```typescript
+// Before
+[
+  { id: 1, title: 'Chapter 1', ... },
+  { id: 2, title: 'Chapter 2', ... },
+  { id: 3, title: 'Chapter 3', ... },  // ← DELETE THIS
+  { id: 4, title: 'Chapter 4', ... }
+]
+
+// After
+[
+  { id: 1, title: 'Chapter 1', ... },
+  { id: 2, title: 'Chapter 2', ... },
+  { id: 4, title: 'Chapter 4', ... }   // ← Keep ID 4!
+]
+```
+
+2. Navigation will skip deleted chapter IDs gracefully
+3. Accessing `/chapter/3` will show "Chapter Not Found" with link back to Chapter 1
+
+---
+
+## 🌐 Customizing Social Media Links
+
+Edit `/components/social-footer.tsx`:
+
+```typescript
+// Find this section:
+const socialLinks = [
+  { icon: Twitter, href: 'https://twitter.com/yourhandle', label: 'Twitter' },
+  { icon: Instagram, href: 'https://instagram.com/yourprofile', label: 'Instagram' },
+  { icon: MessageCircle, href: 'https://discord.gg/yourserver', label: 'Discord' },
+]
+
+// Update URLs to your social media:
+const socialLinks = [
+  { icon: Twitter, href: 'https://twitter.com/myaccount', label: 'Twitter' },
+  { icon: Instagram, href: 'https://instagram.com/myprofile', label: 'Instagram' },
+  { icon: MessageCircle, href: 'https://discord.gg/12345', label: 'Discord' },
+]
+```
+
+---
+
+## 🎯 Customizing Colors & Theme
+
+Update design tokens in `/app/globals.css`:
+
+```css
+:root {
+  --color-primary: #fbbf24;        /* Yellow (chapters button) */
+  --color-secondary: #3b82f6;      /* Blue (about button) */
+  --color-accent: #10b981;         /* Green (copy button) */
+  --color-background: #fef3c7;     /* Page background */
+  --color-foreground: #1f2937;     /* Text color */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: #d97706;
+    --color-secondary: #1e40af;
+    --color-accent: #059669;
+    --color-background: #111827;
+    --color-foreground: #f9fafb;
+  }
+}
+```
+
+---
+
+## 🔤 Changing Fonts
+
+Edit `/app/layout.tsx`:
+
+```typescript
+import { YourFont } from 'next/font/google'
+
+const yourFont = YourFont({ 
+  subsets: ['latin'],
+  weight: ['400', '700']
+})
+
+export default function RootLayout() {
+  return (
+    <html className={yourFont.className}>
+      {/* Content */}
+    </html>
+  )
+}
+```
 
 ## Using Components
 
