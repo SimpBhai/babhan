@@ -129,7 +129,7 @@ export default function ChapterPage() {
         onShare={handleShare}
       />
 
-      <div className="relative flex flex-col items-center justify-center min-h-screen pt-32 pb-40 gap-8 px-4 py-8">
+      <div className="relative flex flex-col items-center justify-center min-h-screen pt-20 pb-40 gap-6 px-4 py-4">
         {/* Content with Side Navigation (Desktop) */}
         <div className="w-full max-w-4xl hidden md:flex items-center justify-center gap-2 md:gap-6">
           {/* Left Navigation Button */}
