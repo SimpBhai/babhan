@@ -1,8 +1,9 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Copy } from 'lucide-react'
+import { Moon, Sun } from 'lucide-react'
 import { useState } from 'react'
+import { useTheme } from '@/lib/theme-context'
 
 interface HeaderProps {
   title: string
@@ -17,6 +18,7 @@ export function Header({
   totalCards,
   onShare,
 }: HeaderProps) {
+  const { theme, toggleTheme } = useTheme()
   const progress = (cardNumber / totalCards) * 100
 
   return (
@@ -39,18 +41,20 @@ export function Header({
             </motion.div>
           </div>
 
-          {/* Right: Share/Copy Link Button */}
-          {onShare && (
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={onShare}
-              className="p-2 rounded-lg bg-green-600 dark:bg-green-500 hover:bg-green-700 dark:hover:bg-green-600 text-white transition-colors"
-              title="Copy chapter link to clipboard"
-            >
-              <Copy className="w-5 h-5" />
-            </motion.button>
-          )}
+          {/* Right: Theme Toggle Button */}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={toggleTheme}
+            className="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white transition-colors"
+            title="Toggle dark/light mode"
+          >
+            {theme === 'dark' ? (
+              <Sun className="w-5 h-5" />
+            ) : (
+              <Moon className="w-5 h-5" />
+            )}
+          </motion.button>
         </div>
 
         {/* Progress Bar */}

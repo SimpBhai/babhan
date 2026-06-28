@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation'
 import { Header } from '@/components/header'
 import { CardViewer } from '@/components/card-viewer'
 import { SocialFooter } from '@/components/social-footer'
-import { ChevronLeft, ChevronRight, Moon, Sun, Info } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Copy, Info } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useTheme } from '@/lib/theme-context'
@@ -121,7 +121,7 @@ export default function ChapterPage() {
   }
 
   return (
-    <div className="min-h-screen pb-32 bg-gradient-to-br from-yellow-50 via-amber-50 to-orange-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 transition-colors duration-200">
+    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-amber-50 to-orange-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 transition-colors duration-200">
       <Header
         title={chapterContent.currentCard.title}
         cardNumber={chapterContent.currentIndex + 1}
@@ -129,7 +129,7 @@ export default function ChapterPage() {
         onShare={handleShare}
       />
 
-      <div className="relative flex flex-col items-center justify-center min-h-[calc(100vh-200px)] gap-8 px-4 py-12">
+      <div className="relative flex flex-col items-center justify-center min-h-screen pt-32 pb-40 gap-8 px-4 py-8">
         {/* Content with Side Navigation (Desktop) */}
         <div className="w-full max-w-4xl hidden md:flex items-center justify-center gap-2 md:gap-6">
           {/* Left Navigation Button */}
@@ -189,20 +189,16 @@ export default function ChapterPage() {
 
       {/* Bottom Navigation Controls */}
       <div className="fixed bottom-14 left-0 right-0 flex items-center justify-center gap-2 sm:gap-4 z-30 px-4">
-        {/* Theme Toggle */}
+        {/* Copy/Share Link Button */}
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          onClick={toggleTheme}
-          className="p-2 rounded-lg bg-gray-700 dark:bg-gray-600 hover:bg-gray-800 dark:hover:bg-gray-500 text-white transition-colors flex-shrink-0"
-          aria-label="Toggle theme"
-          title="Toggle dark/light mode"
+          onClick={handleShare}
+          className="p-3 rounded-lg bg-green-600 dark:bg-green-500 hover:bg-green-700 dark:hover:bg-green-600 text-white transition-colors flex-shrink-0"
+          title="Copy chapter link to clipboard"
+          aria-label="Copy chapter link"
         >
-          {theme === 'light' ? (
-            <Moon className="w-5 h-5" />
-          ) : (
-            <Sun className="w-5 h-5" />
-          )}
+          <Copy className="w-5 h-5" />
         </motion.button>
 
         {/* Previous Button */}
