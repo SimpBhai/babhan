@@ -1,39 +1,66 @@
-# Evidence Deck - Modern Presentation Framework
+# Evidence Deck - Modern Interactive Presentation Framework
 
-A professional, responsive presentation framework built with Next.js 16, React 19, and Tailwind CSS. Perfect for evidence-based discussions, research presentations, and professional slideshows.
+A beautiful, responsive, and feature-rich presentation framework built with Next.js 16, React 19, Tailwind CSS, and Framer Motion. Perfect for creating engaging chapter-based presentations with smooth animations, seamless navigation, and professional social media integration.
 
 ![Next.js](https://img.shields.io/badge/Next.js-16+-black?logo=next.js)
 ![React](https://img.shields.io/badge/React-19+-blue?logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue?logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.2-38B2AC?logo=tailwind-css)
+![Framer Motion](https://img.shields.io/badge/Framer%20Motion-11+-black?logo=framer)
 
 ## Features
 
-✨ **Modern & Responsive**
-- Fully responsive design (mobile, tablet, desktop)
-- Dark mode support with system preference detection
-- Smooth animations with Framer Motion
-- Progressive enhancement for accessibility
+✨ **Modern & Responsive Design**
+- Fully responsive layout (mobile 375px, tablet, desktop 1280px+)
+- Dark mode support with automatic system preference detection
+- Smooth animations with Framer Motion for polished interactions
+- Progressive enhancement and accessibility-first approach
+- Gradient backgrounds and glass-morphism effects
 
-🎯 **Professional Presentation Features**
-- Expandable card sections with structured content
-- Subsections with detailed information
-- Source citations and external links
-- Real-time progress tracking
-- Presentation mode with keyboard controls
+🎯 **Chapter-Based Navigation**
+- Navigate through chapters with smooth slide transitions
+- Visual progress bar showing presentation progress
+- Chapter counter (Chapter X of Y) in header
+- Bottom navigation bar with intuitive controls
+- Keyboard shortcuts for power users
 
-🎮 **Interactive Controls**
-- Keyboard navigation (Arrow keys, Home, End)
-- Menu toggle (C key)
-- Touch-friendly mobile navigation
-- Smooth transitions between cards
-- Accessibility-first design
+🎮 **Interactive Controls & Shortcuts**
+- **Keyboard Navigation**: Arrow keys (← →) to move between chapters
+- **Home/End Keys**: Jump to first or last chapter
+- **C Key**: Toggle chapters menu for quick navigation
+- **Esc Key**: Close any open menus
+- Touch-friendly button sizing (44px minimum on mobile)
+- Real-time visual feedback with hover/tap animations
 
-🔗 **Social Integration**
-- Built-in social media links (Twitter, Instagram, Discord)
-- Share presentation functionality
-- Download deck as JSON
-- Modern social footer
+🔗 **Social & Sharing Features**
+- **Share Button**: Copy chapter links to clipboard with one click
+- **Social Media Footer**: Direct links to Twitter, Instagram, Discord
+- **Shareable Chapter Links**: Each chapter has a unique URL parameter
+- **Social Integration**: Embedded social icons with hover effects
+- **Built-in Social Footer**: Always accessible at bottom of page
+
+📱 **Mobile-First Responsive Design**
+- Optimized mobile layout with bottom navigation
+- Desktop layout with side navigation buttons
+- Tablet-optimized spacing and typography
+- Touch gestures support on mobile
+- Reduced spacing on small screens
+
+## Navigation Bar Layout
+
+The bottom navigation bar provides quick access to all key features:
+
+```
+[Theme Toggle] [Previous] [CHAPTERS] [Next] [Share Chapter]
+     (Moon)        (<)        (Yellow)   (>)    (Copy Icon)
+```
+
+### Navigation Controls
+- **Theme Toggle (Left)**: Click moon/sun icon to switch between light/dark mode
+- **Previous Button**: Navigate to previous chapter (keyboard: ←)
+- **CHAPTERS Button**: Open menu to jump to any chapter
+- **Next Button**: Navigate to next chapter (keyboard: →)
+- **Share Button (Green)**: Copy current chapter link to clipboard
 
 ## Quick Start
 
@@ -50,8 +77,7 @@ cd evidence-deck
 
 # Install dependencies
 pnpm install
-# or
-npm install
+# or npm install or yarn install
 ```
 
 ### Development
@@ -59,11 +85,10 @@ npm install
 ```bash
 # Start the development server
 pnpm dev
-# or
-npm run dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+# Open in browser
+# http://localhost:3000
+```
 
 ### Build for Production
 

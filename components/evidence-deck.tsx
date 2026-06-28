@@ -6,9 +6,8 @@ import { CardMenu } from './card-menu'
 import { CardViewer } from './card-viewer'
 import { SocialFooter } from './social-footer'
 import { Header } from './header'
-import { ChevronLeft, ChevronRight, Moon, Sun, Info } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Moon, Sun, Copy } from 'lucide-react'
 import { motion } from 'framer-motion'
-import Link from 'next/link'
 import { useTheme } from '@/lib/theme-context'
 
 export function EvidenceDeck() {
@@ -225,15 +224,17 @@ export function EvidenceDeck() {
             <ChevronRight className="w-5 h-5" />
           </motion.button>
 
-          {/* About Link with Icon */}
-          <Link
-            href="/about"
-            className="p-3 rounded-lg bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white transition-colors flex-shrink-0"
-            title="About Evidence Deck"
-            aria-label="About"
+          {/* Share Chapter Link */}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleShare}
+            className="p-3 rounded-lg bg-green-600 dark:bg-green-500 hover:bg-green-700 dark:hover:bg-green-600 text-white transition-colors flex-shrink-0"
+            title="Share this chapter"
+            aria-label="Share chapter"
           >
-            <Info className="w-5 h-5" />
-          </Link>
+            <Copy className="w-5 h-5" />
+          </motion.button>
         </div>
 
 

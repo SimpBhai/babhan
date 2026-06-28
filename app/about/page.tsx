@@ -172,8 +172,9 @@ export default function AboutPage() {
               Get Started Today
             </h2>
             <p className="text-gray-700 dark:text-gray-300 mb-6">
-              Ready to create your first presentation? Check out our comprehensive
-              guides and documentation to get up and running in minutes.
+              Ready to create your first presentation? Use the navigation at the bottom
+              to explore chapters, share links, and customize your experience. Built with modern
+              web technologies for optimal performance and accessibility.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a
