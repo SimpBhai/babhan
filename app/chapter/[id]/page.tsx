@@ -4,7 +4,6 @@ import { deckData } from '@/lib/deck-data'
 import { useParams } from 'next/navigation'
 import { Header } from '@/components/header'
 import { CardViewer } from '@/components/card-viewer'
-import { SocialFooter } from '@/components/social-footer'
 import { ChevronLeft, ChevronRight, Copy, Info } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
@@ -188,7 +187,7 @@ export default function ChapterPage() {
       </div>
 
       {/* Bottom Navigation Controls */}
-      <div className="fixed bottom-14 left-0 right-0 flex items-center justify-center gap-2 sm:gap-4 z-30 px-4">
+      <div className="fixed bottom-0 left-0 right-0 flex items-center justify-center gap-2 sm:gap-3 z-30 px-4 py-3 bg-gradient-to-t from-white dark:from-gray-900 to-transparent backdrop-blur-sm">
         {/* Copy/Share Link Button */}
         <motion.button
           whileHover={{ scale: 1.05 }}
@@ -248,8 +247,6 @@ export default function ChapterPage() {
           <Info className="w-5 h-5" />
         </Link>
       </div>
-
-      <SocialFooter />
     </div>
   )
 }
